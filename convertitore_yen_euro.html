@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             text-align: center;
-            background-color: pink;
+            background-color: cyan;
         }
         .container {
             display: flex;
@@ -57,6 +57,8 @@
     <div class="tasso">
         <label for="tasso">Tasso di cambio (1 Euro in Yen):</label>
         <input type="number" id="tasso" value="160" step="0.01">
+        <br>
+        <button onclick="aggiornaTasso()">Aggiorna Tasso</button>
     </div>
 
     <script>
@@ -73,17 +75,31 @@
                 document.getElementById("yen").value = (euro * tassoCambio).toFixed(2);
             }
         }
-        
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                .then((registration) => {
-                    console.log('Service Worker registrato con successo:', registration);
-                })
-                .catch((error) => {
-                    console.log('Errore nella registrazione del Service Worker:', error);
-                });
-            });
+
+        async function aggiornaTasso() {
+            const tassoInput = document.getElementById("tasso");
+
+            try {
+                // Usa un'API pubblica per ottenere il tasso di cambio (es. exchangerate.host)
+                const response = await fetch("https://api.exchangerate.host/latest?base=EUR&symbols=JPY");
+
+                if (!response.ok) {
+                    throw new Error("Errore nella risposta dell'API");
+                }
+
+                const data = await response.json();
+                const nuovoTasso = data.rates.JPY;
+
+                if (nuovoTasso) {
+                    tassoInput.value = nuovoTasso.toFixed(2);
+                    alert(`Tasso aggiornato a: ${nuovoTasso.toFixed(2)} Yen per Euro`);
+                } else {
+                    throw new Error("Tasso non disponibile");
+                }
+            } catch (error) {
+                console.error("Errore durante l'aggiornamento del tasso:", error);
+                alert("Impossibile aggiornare il tasso. Controlla la connessione a Internet.");
+            }
         }
     </script>
 </body>
