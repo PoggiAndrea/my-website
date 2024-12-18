@@ -81,7 +81,7 @@
 
             try {
                 // Usa un'API pubblica per ottenere il tasso di cambio (es. exchangerate.host)
-                const response = await fetch("https://api.exchangerate.host/latest?base=EUR&symbols=JPY");
+                const response = await fetch("https://api.exchangerate.host/latest?base=EUR&symbols=JPY&access_key=e822c862bbe995596326d1a82b8b5560");
 
                 if (!response.ok) {
                     throw new Error("Errore nella risposta dell'API");
