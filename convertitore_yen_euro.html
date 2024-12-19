@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             text-align: center;
-            background-color: cyan;
+            background-color: Pink;
         }
         .container {
             display: flex;
@@ -37,6 +37,14 @@
         .tasso {
             margin-top: 20px;
         }
+        .aggiorna-btn {
+            margin-top: 10px;
+            background-color: blue;
+            color: white;
+        }
+        .aggiorna-btn:hover {
+            background-color: darkblue;
+        }
     </style>
 </head>
 <body>
@@ -57,9 +65,11 @@
     <div class="tasso">
         <label for="tasso">Tasso di cambio (1 Euro in Yen):</label>
         <input type="number" id="tasso" value="160" step="0.01">
+        <button class="aggiorna-btn" onclick="aggiornaTasso()">Aggiorna</button>
     </div>
 
     <script>
+        // Funzione per convertire Yen ed Euro
         function converti() {
             const tassoCambio = parseFloat(document.getElementById("tasso").value);
             const yen = parseFloat(document.getElementById("yen").value);
@@ -74,7 +84,30 @@
             }
         }
 
-        // Registrazione del Service Worker
+        // Funzione per salvare il tasso di cambio nel localStorage
+        function aggiornaTasso() {
+            const tassoCambio = parseFloat(document.getElementById("tasso").value);
+            if (!isNaN(tassoCambio)) {
+                localStorage.setItem("tassoCambio", tassoCambio);
+                alert(`Tasso di cambio aggiornato a: ${tassoCambio}`);
+            } else {
+                alert("Inserisci un valore valido per il tasso di cambio.");
+            }
+        }
+
+        // Funzione per caricare il tasso di cambio salvato all'avvio
+        function caricaTasso() {
+            const tassoSalvato = localStorage.getItem("tassoCambio");
+            if (tassoSalvato) {
+                document.getElementById("tasso").value = tassoSalvato;
+                console.log(`Tasso di cambio caricato: ${tassoSalvato}`);
+            }
+        }
+
+        // Esegui il caricamento del tasso salvato quando la pagina è pronta
+        window.onload = caricaTasso;
+
+        // Registrazione del Service Worker (se richiesto)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
