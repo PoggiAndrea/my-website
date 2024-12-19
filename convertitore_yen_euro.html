@@ -76,30 +76,6 @@
             }
         }
 
-async function aggiornaTasso() {
-    const tassoInput = document.getElementById("tasso");
-    const url = "https://api.exchangerate.host/latest?base=EUR&symbols=JPY&access_key=e822c862bbe995596326d1a82b8b5560"; // Sostituisci "your_access_key" con la tua chiave
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Errore nella risposta dell'API");
-        }
-
-        const data = await response.json();
-        if (!data.success) {
-            throw new Error(data.error.info || "Errore sconosciuto");
-        }
-
-        const nuovoTasso = data.rates.JPY;
-        tassoInput.value = nuovoTasso.toFixed(2);
-        alert(`Tasso aggiornato a: ${nuovoTasso.toFixed(2)} Yen per Euro`);
-    } catch (error) {
-        console.error("Errore durante l'aggiornamento del tasso:", error);
-        alert("Impossibile aggiornare il tasso. Controlla la connessione a Internet o la chiave API.");
-    }
-}
-
 
         }
     </script>
