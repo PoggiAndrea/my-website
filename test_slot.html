@@ -85,17 +85,16 @@
 
   <script>
     const imgUrls = [
-  'https://via.placeholder.com/100?text=A',
-  'https://via.placeholder.com/100?text=B',
-  'https://via.placeholder.com/100?text=C',
-  'https://via.placeholder.com/100?text=D',
-  'https://via.placeholder.com/100?text=E',
-  'https://via.placeholder.com/100?text=F',
-  'https://via.placeholder.com/100?text=G',
-  'https://via.placeholder.com/100?text=H',
-  'https://via.placeholder.com/100?text=I'
-];
-
+      'https://placekitten.com/100/100',
+      'https://placebear.com/100/100',
+      'https://via.placeholder.com/100?text=🐶',
+      'https://via.placeholder.com/100?text=🍎',
+      'https://via.placeholder.com/100?text=🌟',
+      'https://via.placeholder.com/100?text=🎲',
+      'https://via.placeholder.com/100?text=💎',
+      'https://via.placeholder.com/100?text=🍋',
+      'https://via.placeholder.com/100?text=🔔'
+    ];
 
     const legend = document.getElementById('legend');
     imgUrls.forEach(u => {
@@ -126,4 +125,11 @@
         reels.forEach(r => spinOnce(r));
         elapsed += interval;
         if (elapsed >= total) clearInterval(timer);
-      }, inter
+      }, interval);
+    }
+
+    document.getElementById('spin').addEventListener('click', spinAll);
+  </script>
+
+</body>
+</html>
