@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slot Machine Prototipo</title>
+  <style>
+    body { font-family:sans-serif; display:flex; flex-direction:center; align-items:center; }
+    .legend, .reels { display:flex; justify-content:center; margin:10px; }
+    .legend img, .reels .reel img { width:60px; height:60px; object-fit:cover; margin:2px; }
+    .reel { width:60px; height:60px; overflow:hidden; border:2px solid #333; margin:0 5px; }
+    .reel img { display:block; }
+    #spin { display:block; margin:10px auto; padding:10px 20px; font-size:1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Legenda -->
+  <div class="legend" id="legend"></div>
+
+  <!-- Rulli -->
+  <div class="reels">
+    <div class="reel" id="r1"></div>
+    <div class="reel" id="r2"></div>
+    <div class="reel" id="r3"></div>
+  </div>
+
+  <!-- Bottone -->
+  <button id="spin">SPIN</button>
+
+  <script>
+    const imgUrls = [
+      'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png',
+      'https://...', // sostituisci con turn0image2,4,6 real urls
+    ];
+
+    const legend = document.getElementById('legend');
+    imgUrls.forEach(u => {
+      const img = document.createElement('img'); img.src = u;
+      legend.appendChild(img);
+    });
+
+    const reels = [document.getElementById('r1'), document.getElementById('r2'), document.getElementById('r3')];
+
+    function spinOnce(reelElm) {
+      reelElm.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = imgUrls[Math.floor(Math.random()*imgUrls.length)];
+      reelElm.appendChild(img);
+    }
+
+    function spinAll() {
+      const interval = 100;
+      const total = 5000;
+      let elapsed = 0;
+      const timer = setInterval(() => {
+        reels.forEach(r => spinOnce(r));
+        elapsed += interval;
+        if (elapsed >= total) clearInterval(timer);
+      }, interval);
+    }
+
+    document.getElementById('spin').addEventListener('click', spinAll);
+  </script>
+
+</body>
+</html>
