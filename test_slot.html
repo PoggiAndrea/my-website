@@ -15,22 +15,24 @@
     }
 
     .legend-container {
-      display: flex;
-      justify-content: center;
-      border: 3px solid #fff; /* puoi regolare lo spessore qui */
-      padding: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      max-width: 600px; /* per tenerlo più compatto */
-      margin-left: auto;
-      margin-right: auto;
-    }
+    display: flex;
+    justify-content: center;
+    border: 3px solid #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    column-gap: 60px; /* distanza tra le due colonne */
+  }
 
-    .legend-column {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+  .legend-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 150px; /* facoltativo: allarga ogni colonna */
+  }
 
     .legend-item {
       display: flex;
