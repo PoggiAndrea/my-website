@@ -14,25 +14,63 @@
       padding: 20px;
     }
 
-    .legend-container {
-    display: flex;
-    justify-content: center;
-    border: 3px solid #fff;
-    padding: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    column-gap: 60px; /* distanza tra le due colonne */
-  }
+    /* Contenitore generale che tiene legenda + immagini laterali */
+    .legend-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px; /* spazio tra immagine e legenda */
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
 
-  .legend-column {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-width: 150px; /* facoltativo: allarga ogni colonna */
-  }
+    /* Immagini laterali */
+    .side-image {
+      width: 120px;
+      height: auto;
+    }
+
+    /* Titolo generale sopra legenda */
+    .main-title {
+      font-size: 2rem; /* titolo grande */
+      text-align: justify;
+      margin-bottom: 10px;
+    }
+
+    /* Contenitore della legenda con sfondo immagine */
+    .legend-container {
+      display: flex;
+      justify-content: center;
+      border: 3px solid #fff;
+      padding: 10px;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      column-gap: 60px;
+      background-image: url('f7.png'); /* sfondo della legenda */
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    /* Scritta "LEGENDA" allineata a sinistra */
+    .legend-label {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      /* COLORE DEL TESTO DELLA LEGENDA: modificalo qui se serve per contrasto */
+      color: #fff; /* <-- CAMBIA SE NON CONTRASTA BENE CON LO SFONDO */
+    }
+
+    .legend-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 150px;
+    }
 
     .legend-item {
       display: flex;
@@ -72,8 +110,8 @@
     }
 
     #spin {
-      padding: 10px 30px;
-      font-size: 1.2rem;
+      padding: 12px 36px; /* ingrandito del 1.2x rispetto al tuo precedente */
+      font-size: 1.44rem; /* ingrandito del 1.2x */
       background: #28a745;
       color: #fff;
       border: none;
@@ -88,23 +126,37 @@
 </head>
 <body>
 
-  <!-- Legenda -->
-  <div class="legend-container" id="legend">
-    <div class="legend-column" id="col-left"></div>
-    <div class="legend-column" id="col-right"></div>
+  <!-- TITOLO grande sopra la legenda -->
+  <div class="main-title">TITOLO</div>
+
+  <!-- Wrapper con immagini laterali + legenda -->
+  <div class="legend-wrapper">
+    <!-- Immagine a sinistra -->
+    <img src="f8.png" alt="f8" class="side-image" />
+
+    <!-- Legenda con sfondo -->
+    <div class="legend-container" id="legend">
+      <div class="legend-label">LEGENDA</div>
+      <div class="legend-column" id="col-left"></div>
+      <div class="legend-column" id="col-right"></div>
+    </div>
+
+    <!-- Immagine a destra -->
+    <img src="f9.png" alt="f9" class="side-image" />
   </div>
 
-  <!-- Rulli -->
+  <!-- Rulli slot -->
   <div class="reels">
     <div class="reel" id="r1"></div>
     <div class="reel" id="r2"></div>
     <div class="reel" id="r3"></div>
   </div>
 
-  <!-- Bottone -->
+  <!-- Pulsante spin -->
   <button id="spin">SPIN</button>
 
   <script>
+    // Immagini disponibili per slot
     const imgUrls = [
       'f1.png',
       'f2.png',
@@ -114,6 +166,7 @@
       'f6.png'
     ];
 
+    // Testi della legenda
     const legendTexts = [
       'MOMENTO QUIZ',
       'BELLISSIMO',
@@ -123,9 +176,11 @@
       'EL DOCTOR'
     ];
 
+    // Colonne sinistra e destra
     const colLeft = document.getElementById('col-left');
     const colRight = document.getElementById('col-right');
 
+    // Popola la legenda con immagini + testo
     imgUrls.forEach((u, i) => {
       const item = document.createElement('div');
       item.className = 'legend-item';
@@ -146,12 +201,14 @@
       }
     });
 
+    // Elementi dei rulli
     const reels = [
       document.getElementById('r1'),
       document.getElementById('r2'),
       document.getElementById('r3')
     ];
 
+    // Funzione per cambiare un rullo con immagine random
     function spinOnce(reelElm) {
       reelElm.innerHTML = '';
       const img = document.createElement('img');
@@ -159,6 +216,7 @@
       reelElm.appendChild(img);
     }
 
+    // Funzione per far girare tutti i rulli
     function spinAll() {
       const interval = 100;
       const total = 5000;
@@ -171,6 +229,7 @@
       }, interval);
     }
 
+    // Attiva lo spin al click del pulsante
     document.getElementById('spin').addEventListener('click', spinAll);
   </script>
 
