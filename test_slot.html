@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slot Machine</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .legend {
+      display: inline-block;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin: 6px 0;
+    }
+
+    .legend-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 10px;
+      border: 2px solid #fff;
+      border-radius: 4px;
+    }
+
+    .reels {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .reel {
+      width: 90px;  /* leggermente ingrandito */
+      height: 90px; /* leggermente ingrandito */
+      overflow: hidden;
+      border: 3px solid #fff;
+      border-radius: 6px;
+      margin: 0 5px;
+      background: #222;
+    }
+
+    .reel img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #spin {
+      padding: 10px 30px;
+      font-size: 1.2rem;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #spin:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Legenda -->
+  <div class="legend" id="legend"></div>
+
+  <!-- Rulli -->
+  <div class="reels">
+    <div class="reel" id="r1"></div>
+    <div class="reel" id="r2"></div>
+    <div class="reel" id="r3"></div>
+  </div>
+
+  <!-- Bottone -->
+  <button id="spin">SPIN</button>
+
+  <script>
+    const imgUrls = [
+      'f1.jpg',
+      'f2.jpg',
+      'f3.jpg',
+      'f4.jpg',
+      'f5.jpg',
+      'f6.jpg'
+    ];
+
+    const legendTexts = [
+      'Text 1',
+      'Text 2',
+      'Text 3',
+      'Text 4',
+      'Text 5',
+      'Text 6'
+    ];
+
+    const legend = document.getElementById('legend');
+    imgUrls.forEach((u, i) => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+
+      const img = document.createElement('img');
+      img.src = u;
+
+      const text = document.createElement('span');
+      text.textContent = legendTexts[i];
+
+      item.appendChild(img);
+      item.appendChild(text);
+      legend.appendChild(item);
+    });
+
+    const reels = [
+      document.getElementById('r1'),
+      document.getElementById('r2'),
+      document.getElementById('r3')
+    ];
+
+    function spinOnce(reelElm) {
+      reelElm.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = imgUrls[Math.floor(Math.random() * imgUrls.length)];
+      reelElm.appendChild(img);
+    }
+
+    function spinAll() {
+      const interval = 100;
+      const total = 5000;
+      let elapsed = 0;
+
+      const timer = setInterval(() => {
+        reels.forEach(r => spinOnce(r));
+        elapsed += interval;
+        if (elapsed >= total) clearInterval(timer);
+      }, interval);
+    }
+
+    document.getElementById('spin').addEventListener('click', spinAll);
+  </script>
+
+</body>
+</html>
