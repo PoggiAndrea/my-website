@@ -15,22 +15,26 @@
     }
 
     .legend {
-      display: inline-block;
-      text-align: left;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 20px;
     }
 
     .legend-item {
       display: flex;
       align-items: center;
-      margin: 6px 0;
+      background: #222;
+      padding: 4px 8px;
+      border-radius: 4px;
     }
 
     .legend-item img {
       width: 60px;
       height: 60px;
       object-fit: cover;
-      margin-right: 10px;
+      margin-right: 6px;
       border: 2px solid #fff;
       border-radius: 4px;
     }
@@ -42,8 +46,8 @@
     }
 
     .reel {
-      width: 180px;  /* leggermente ingrandito */
-      height: 180px; /* leggermente ingrandito */
+      width: 90px;  /* ingrandito */
+      height: 90px;
       overflow: hidden;
       border: 3px solid #fff;
       border-radius: 6px;
@@ -99,12 +103,12 @@
     ];
 
     const legendTexts = [
-      'Super quiz',
-      'Love',
-      'Futuro',
-      'Fail',
-      'Party time',
-      'Università'
+      'Text 1',
+      'Text 2',
+      'Text 3',
+      'Text 4',
+      'Text 5',
+      'Text 6'
     ];
 
     const legend = document.getElementById('legend');
@@ -153,4 +157,3 @@
 
 </body>
 </html>
-
