@@ -14,23 +14,34 @@
       padding: 20px;
     }
 
-    .legend {
-      display: inline-block;
-      text-align: left;
+    .legend-container {
+      display: flex;
+      justify-content: center;
+      border: 3px solid #fff; /* puoi regolare lo spessore qui */
+      padding: 10px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
+      max-width: 300px; /* per tenerlo più compatto */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .legend-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .legend-item {
       display: flex;
       align-items: center;
-      margin: 6px 0;
     }
 
     .legend-item img {
       width: 60px;
       height: 60px;
       object-fit: cover;
-      margin-right: 10px;
+      margin-right: 8px;
       border: 2px solid #fff;
       border-radius: 4px;
     }
@@ -42,8 +53,8 @@
     }
 
     .reel {
-      width: 90px;  /* leggermente ingrandito */
-      height: 90px; /* leggermente ingrandito */
+      width: 90px;
+      height: 90px;
       overflow: hidden;
       border: 3px solid #fff;
       border-radius: 6px;
@@ -76,7 +87,10 @@
 <body>
 
   <!-- Legenda -->
-  <div class="legend" id="legend"></div>
+  <div class="legend-container" id="legend">
+    <div class="legend-column" id="col-left"></div>
+    <div class="legend-column" id="col-right"></div>
+  </div>
 
   <!-- Rulli -->
   <div class="reels">
@@ -107,7 +121,9 @@
       'Text 6'
     ];
 
-    const legend = document.getElementById('legend');
+    const colLeft = document.getElementById('col-left');
+    const colRight = document.getElementById('col-right');
+
     imgUrls.forEach((u, i) => {
       const item = document.createElement('div');
       item.className = 'legend-item';
@@ -120,7 +136,12 @@
 
       item.appendChild(img);
       item.appendChild(text);
-      legend.appendChild(item);
+
+      if (i < 3) {
+        colLeft.appendChild(item);
+      } else {
+        colRight.appendChild(item);
+      }
     });
 
     const reels = [
